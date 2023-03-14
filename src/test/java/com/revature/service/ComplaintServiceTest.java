@@ -26,7 +26,7 @@ public class ComplaintServiceTest {
 
     @Test
     public void testInsert(){
-        Complaint complaint = new Complaint("potion stock is too little");
+        Complaint complaint = new Complaint("potion stock is too little", -1);
         Complaint newComplaint = new Complaint(1l, "potion stock is too little", "UNREVIEWED", -1);
 
         // mock the save method of the repository, so the repository doesn't actually access the database
@@ -38,7 +38,7 @@ public class ComplaintServiceTest {
 
     @Test
     public void testUpdate() {
-        Complaint complaint = new Complaint("potion stock is too little");
+        Complaint complaint = new Complaint("potion stock is too little", -1);
         Complaint updatedComplaint = new Complaint(1l, "potion stock is too little", "REVIEWED", -1);
 
         // mock the save method of the repository, so the repository doesn't actually access the database
@@ -49,14 +49,21 @@ public class ComplaintServiceTest {
     }
 
     @Test
+    public void testDelete() {
+        Complaint complaint = new Complaint(1l, "potion stock is too little", "REVIEWED", -1);
+
+        // mock the existsById method of the repository, so the repository doesn't actually access the database
+        Mockito.when(complaintRepository.existsById(1l)).thenReturn(true);
+
+        Assertions.assertEquals(true, complaintService.delete(1l));
+    }
+
+    @Test
     public void testGetById() {
         Complaint expectedComplaint = new Complaint(1l, "potion stock is too little", "UNREVIEWED", -1);
 
         // mock the findById method of the repository, so the repository doesn't actually access the database
         Mockito.when(complaintRepository.findById(1l)).thenReturn(Optional.of(expectedComplaint));
-
-        // ensure that a complaint with that id exists
-        Assertions.assertNotNull(complaintService.getById(1l));
 
         // ensure that the service returns the complaint of the correct id
         Assertions.assertEquals(expectedComplaint, complaintService.getById(1l));

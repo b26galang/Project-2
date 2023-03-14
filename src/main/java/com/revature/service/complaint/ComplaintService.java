@@ -11,4 +11,7 @@ public interface ComplaintService {
     List<Complaint>getAll(String flag);
     Complaint insert(Complaint complaint);
     Complaint update(Complaint complaint);
+
+    // Complaints will not actually be able to be deleted through the front-end
+    boolean delete(Long id);
 }

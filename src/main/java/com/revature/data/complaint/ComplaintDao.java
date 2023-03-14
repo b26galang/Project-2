@@ -5,9 +5,9 @@ import com.revature.entity.Complaint;
 import java.util.List;
 
 public interface ComplaintDao {
-    Complaint insert(Complaint complaint);
-    Complaint getById(Long id);
-    List<Complaint> getAll();
-    Complaint update(Complaint complaint);
-
+    List<Complaint> findAddressed();
+    List<Complaint> findUnreviewed();
+    List<Complaint> findHighPriority();
+    List<Complaint> findLowPriority();
+    List<Complaint> findIgnored();
 }
