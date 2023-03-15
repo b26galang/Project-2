@@ -16,6 +16,7 @@ import java.util.Optional;
 
 @SpringBootTest
 public class ComplaintServiceTest {
+
     // mock the complaint repository bean:
     @MockBean(ComplaintRepository.class)
     private ComplaintRepository complaintRepository;
@@ -26,7 +27,7 @@ public class ComplaintServiceTest {
 
     @Test
     public void testInsert(){
-        Complaint complaint = new Complaint("potion stock is too little", -1);
+        Complaint complaint = new Complaint("potion stock is too little");
         Complaint newComplaint = new Complaint(1l, "potion stock is too little", "UNREVIEWED", -1);
 
         // mock the save method of the repository, so the repository doesn't actually access the database
@@ -38,7 +39,7 @@ public class ComplaintServiceTest {
 
     @Test
     public void testUpdate() {
-        Complaint complaint = new Complaint("potion stock is too little", -1);
+        Complaint complaint = new Complaint("potion stock is too little");
         Complaint updatedComplaint = new Complaint(1l, "potion stock is too little", "REVIEWED", -1);
 
         // mock the save method of the repository, so the repository doesn't actually access the database

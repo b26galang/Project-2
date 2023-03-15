@@ -55,6 +55,7 @@ public class ComplaintServiceImpl implements ComplaintService {
     }
 
     // Complaints will not actually be able to be deleted through the front-end
+    // Only the status of them will be changed by Users
     @Override
     public boolean delete(Long id) {
         boolean found = complaintRepository.existsById(id);

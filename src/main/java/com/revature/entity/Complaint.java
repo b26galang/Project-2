@@ -29,9 +29,10 @@ public class Complaint {
     @Column(name = "meeting_id")
     private int meetingId;
 
-    public Complaint (String description, int meetingId) {
+    // constructor that unregistered constituent will use in the complaint form
+    // because they will not need to assign an ID, status, or meeting ID
+    public Complaint (String description) {
         this.description = description;
-        this.meetingId = meetingId;
     }
 
 }
