@@ -40,12 +40,12 @@ public class ComplaintServiceTest {
     @Test
     public void testUpdate() {
         Complaint complaint = new Complaint("potion stock is too little");
-        Complaint updatedComplaint = new Complaint(1l, "potion stock is too little", "REVIEWED", -1);
+        Complaint updatedComplaint = new Complaint(1l, "potions are always sold out", "REVIEWED", -1);
 
         // mock the save method of the repository, so the repository doesn't actually access the database
         Mockito.when(complaintRepository.save(complaint)).thenReturn(updatedComplaint);
 
-        // ensure that the service returns the new complaint
+        // ensure that the service returns the updated complaint
         Assertions.assertEquals(updatedComplaint, complaintService.update(complaint));
     }
 
@@ -55,8 +55,10 @@ public class ComplaintServiceTest {
 
         // mock the existsById method of the repository, so the repository doesn't actually access the database
         Mockito.when(complaintRepository.existsById(1l)).thenReturn(true);
+        Mockito.when(complaintRepository.existsById(2l)).thenReturn(false);
 
-        Assertions.assertEquals(true, complaintService.delete(1l));
+        Assertions.assertTrue(complaintService.delete(1l));
+        Assertions.assertFalse(complaintService.delete(2l));
     }
 
     @Test

@@ -16,7 +16,7 @@ import javax.persistence.*;
 public class Meeting {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long userId;
+    private long meetingId;
 
     @Column(name = "address")
     private String address;

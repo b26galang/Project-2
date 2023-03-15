@@ -41,7 +41,7 @@ public class MeetingController {
     }
 
     // Get a meeting by ID
-    @GetMapping("/{id")
+    @GetMapping("/{id}")
     public Meeting getById(@PathVariable("id")Long id) {
         logger1.info("Getting meeting by ID: " + id);
         return meetingService.getById(id);
