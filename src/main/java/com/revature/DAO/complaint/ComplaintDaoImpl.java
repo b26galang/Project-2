@@ -1,4 +1,4 @@
-package com.revature.data.complaint;
+package com.revature.DAO.complaint;
 
 import com.revature.entity.Complaint;
 import com.revature.util.ConnectionFactory;

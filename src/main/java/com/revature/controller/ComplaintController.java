@@ -29,7 +29,7 @@ public class ComplaintController {
     }
 
     // configuring this method to run when we send a get request to the end point /complaints
-    // http://localhost:8081/characters => [list of complaints]
+    // http://localhost:8080/characters => [list of complaints]
     @RequestMapping(value = "", method = RequestMethod.GET)
     public List<Complaint> getAll(@RequestParam(required = false, value = "flag") String flag) {
 
@@ -50,12 +50,15 @@ public class ComplaintController {
         return complaintService.getById(id);
     }
 
+    // Update/replace a complaint
     @PutMapping("/{id}")
     public Complaint update(@RequestBody Complaint complaint) {
         logger1.info("Updating complaint by id to: " + complaint.toString());
         return complaintService.update(complaint);
     }
 
+    // This endpoint will never be accessed because complaints can not get deleted through the front end
+    // Only the complaint status will change
     @DeleteMapping("/{id}")
     public boolean delete(@PathVariable("id") Long id) {
         logger1.info("Deleting the complaint with id " + id + " : " + complaintService.delete(id));
