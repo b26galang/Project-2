@@ -18,7 +18,7 @@ import javax.persistence.*;
 public class Complaint {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long complaintId;
 
     @Column(name = "description")
     private String description;

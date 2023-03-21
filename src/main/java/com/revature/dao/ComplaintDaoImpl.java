@@ -1,4 +1,4 @@
-package com.revature.DAO.complaint;
+package com.revature.dao;
 
 import com.revature.entity.Complaint;
 import com.revature.util.ConnectionFactory;
@@ -18,7 +18,7 @@ public class ComplaintDaoImpl implements ComplaintDao {
 
     @Override
     public List<Complaint> findUnreviewed() {
-        String sql ="select * from complaint_table where complaint_status = 'UNREVIEWED';";
+        String sql = "select * from complaints where status = 'UNREVIEWED';";
 
         // create an empty list to store all the addressed complaints
         List <Complaint> complaints = new ArrayList<>();
@@ -46,7 +46,7 @@ public class ComplaintDaoImpl implements ComplaintDao {
 
     @Override
     public List<Complaint> findHighPriority() {
-        String sql ="select * from complaint_table where complaint_status = 'HIGH PRIORITY';";
+        String sql = "select * from complaints where status = 'HIGH PRIORITY';";
 
         // create an empty list to store all the high priority complaints
         List <Complaint> complaints = new ArrayList<>();
@@ -74,7 +74,7 @@ public class ComplaintDaoImpl implements ComplaintDao {
 
     @Override
     public List<Complaint> findLowPriority() {
-        String sql ="select * from complaint_table where complaint_status = 'LOW PRIORITY';";
+        String sql = "select * from complaints where status = 'LOW PRIORITY';";
 
         // create an empty list to store all the addressed complaints
         List <Complaint> complaints = new ArrayList<>();
@@ -102,7 +102,7 @@ public class ComplaintDaoImpl implements ComplaintDao {
 
     @Override
     public List<Complaint> findIgnored() {
-        String sql = "select * from complaint_table where complaint_status = 'IGNORED';";
+        String sql = "select * from complaints where status = 'IGNORED';";
 
         // create an empty list to store all the addressed complaints
         List<Complaint> complaints = new ArrayList<>();
@@ -130,7 +130,7 @@ public class ComplaintDaoImpl implements ComplaintDao {
 
     @Override
     public List<Complaint> findAddressed() {
-        String sql ="select * from complaint_table where complaint_status = 'ADDRESSED';";
+        String sql ="select * from complaints where status = 'ADDRESSED';";
 
         // create an empty list to store all the addressed complaints
         List <Complaint> complaints = new ArrayList<>();

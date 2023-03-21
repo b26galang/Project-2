@@ -21,43 +21,41 @@ public class MeetingController {
     @Autowired
     MeetingService meetingService;
 
-    // We use the Logger Factory to get a Logger for a particular class
     Logger logger1 = LoggerFactory.getLogger(MeetingController.class);
 
-    // we do a post mapping for inserting new data
     @PostMapping()
     public Meeting insert(@RequestBody Meeting meeting) {
-        logger1.info("Inserting: " + meeting.toString());
+        logger1.info("Inserting: {}", meeting);
         return meetingService.insert(meeting);
     }
 
 
-    // configuring this method to run when we send a get request to the end point /meetings
-    // http://localhost:8080/meetings => [list of meetings]
-    @RequestMapping(method = RequestMethod.GET)
+    @GetMapping
     public List<Meeting> getAll(){
-        logger1.info("Getting all meetings: " + meetingService.getAll().toString());
+        List<Meeting> meetings;
+        meetings = meetingService.getAll();
+        logger1.info("Getting all meetings: {}", meetings.size());
+        for (Meeting meeting: meetings) {
+            logger1.info("Meetings: {}", meeting);
+        }
         return meetingService.getAll();
     }
 
-    // Get a meeting by ID
     @GetMapping("/{id}")
     public Meeting getById(@PathVariable("id")Long id) {
-        logger1.info("Getting meeting by ID: " + id);
+        logger1.info("Getting meeting by ID: {}", id);
         return meetingService.getById(id);
     }
 
-    // Update/replace a complaint
     @PutMapping("/{id}")
     public Meeting update(@RequestBody Meeting meeting) {
-        logger1.info("Updating a meeting by id to: " + meeting.toString());
+        logger1.info("Updating a meeting by ID: {}", meeting);
         return meetingService.update(meeting);
     }
 
-    // Delete a meeting
     @DeleteMapping("/{id}")
     public boolean delete(@PathVariable("id") Long id) {
-        logger1.info("Deleting the meeting with id" + id + " : " + meetingService.delete(id));
+        logger1.info("Deleting the meeting with id: {}", id);
         return meetingService.delete(id);
     }
 }

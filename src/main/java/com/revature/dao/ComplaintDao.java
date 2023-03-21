@@ -1,4 +1,4 @@
-package com.revature.DAO.complaint;
+package com.revature.dao;
 
 import com.revature.entity.Complaint;
 

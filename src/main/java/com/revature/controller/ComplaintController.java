@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-// every single method in this class should be prefixed with /pets
 @RequestMapping("/complaints")
 @CrossOrigin(origins = "http://localhost:3000")
 
@@ -18,50 +17,51 @@ public class ComplaintController {
     @Autowired
     ComplaintService complaintService;
 
-    // We use the Logger Factory to get a Logger for a particular class
     Logger logger1 = LoggerFactory.getLogger(ComplaintController.class);
 
-    // we do a post mapping for inserting new data
     @PostMapping()
     public Complaint insert(@RequestBody Complaint complaint) {
-        logger1.info("Inserting: " + complaint.toString());
+        logger1.info("Inserting: {}", complaint);
         return complaintService.insert(complaint);
     }
 
-    // configuring this method to run when we send a get request to the end point /complaints
-    // http://localhost:8080/characters => [list of complaints]
     @RequestMapping(value = "", method = RequestMethod.GET)
     public List<Complaint> getAll(@RequestParam(required = false, value = "flag") String flag) {
 
-        if (flag == null) {
-            logger1.info("Getting all complaints: " + complaintService.getAll().toString());
-            return complaintService.getAll();
+        List<Complaint> complaints;
 
+        if (flag == null) {
+            complaints = complaintService.getAll();
+            logger1.info("Retrieved all complaints: {}", complaints.size());
+            for (Complaint complaint : complaints) {
+                logger1.info("Complaints: {}", complaint);
+            }
         } else {
-            logger1.info("Getting all complaints by the status " + flag + ": " + complaintService.getAll(flag).toString());
-            return complaintService.getAll(flag);
+            complaints = complaintService.getAll(flag);
+            logger1.info("Retrieved complaints with flag {}: {}", flag, complaints.size());
+            for (Complaint complaint : complaints) {
+                logger1.info("Complaints: {}", complaint);
+            }
         }
+
+        return complaints;
     }
 
-    // Get a complaint by ID
     @GetMapping("/{id}")
     public Complaint getById(@PathVariable("id") Long id) {
-        logger1.info("Getting complaint by ID: " + id);
+        logger1.info("Getting complaint by ID: {}", id);
         return complaintService.getById(id);
     }
 
-    // Update/replace a complaint
     @PutMapping("/{id}")
     public Complaint update(@RequestBody Complaint complaint) {
-        logger1.info("Updating complaint by id to: " + complaint.toString());
+        logger1.info("Updating complaint by id to: {}", complaint);
         return complaintService.update(complaint);
     }
 
-    // This endpoint will never be accessed because complaints can not get deleted through the front end
-    // Only the complaint status will change
     @DeleteMapping("/{id}")
     public boolean delete(@PathVariable("id") Long id) {
-        logger1.info("Deleting the complaint with id " + id + " : " + complaintService.delete(id));
+        logger1.info("Deleting the complaint with id {}", id);
         return complaintService.delete(id);
     }
 }
