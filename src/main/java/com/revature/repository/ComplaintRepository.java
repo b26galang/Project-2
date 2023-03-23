@@ -9,9 +9,6 @@ import java.util.List;
 
 @Repository
 public interface ComplaintRepository extends JpaRepository<Complaint, Long> {
-
-    //For finding complaints by status
-
     @Query(value = "SELECT * FROM complaints WHERE status = 'ADDRESSED'", nativeQuery = true)
     List<Complaint> findAddressed();
 
@@ -26,5 +23,4 @@ public interface ComplaintRepository extends JpaRepository<Complaint, Long> {
 
     @Query(value = "SELECT * FROM complaints WHERE status = 'IGNORED'", nativeQuery = true)
     List<Complaint> findIgnored();
-
 }

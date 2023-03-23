@@ -38,7 +38,6 @@ public class MeetingServiceImpl implements MeetingService {
     @Override
     public boolean delete(Long id) {
         boolean found = meetingRepository.existsById(id);
-        // only try to delete the meeting if id is found
         if (found) meetingRepository.deleteById(id);
         return found;
     }

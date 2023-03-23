@@ -26,8 +26,6 @@ public class Meeting {
     @Column(name="summary")
     private String summary;
 
-    // constructor that council members will use in the meeting form
-    // because they will not need to assign an ID
     public Meeting(String address, int time, String summary) {
         this.address = address;
         this.time = time;

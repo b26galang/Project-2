@@ -1,10 +1,13 @@
 package com.revature.controller;
 
 import com.revature.entity.Complaint;
+import com.revature.exceptions.IdDoesNotExistException;
 import com.revature.service.complaint.ComplaintService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,13 +23,13 @@ public class ComplaintController {
     Logger logger1 = LoggerFactory.getLogger(ComplaintController.class);
 
     @PostMapping()
-    public Complaint insert(@RequestBody Complaint complaint) {
+    public ResponseEntity <Complaint> insert(@RequestBody Complaint complaint) {
         logger1.info("Inserting: {}", complaint);
-        return complaintService.insert(complaint);
+        return new ResponseEntity<>(complaintService.insert(complaint), HttpStatus.CREATED);
     }
 
     @RequestMapping(value = "", method = RequestMethod.GET)
-    public List<Complaint> getAll(@RequestParam(required = false, value = "flag") String flag) {
+    public ResponseEntity <List<Complaint>> getAll(@RequestParam(required = false, value = "flag") String flag) {
 
         List<Complaint> complaints;
 
@@ -43,25 +46,24 @@ public class ComplaintController {
                 logger1.info("Complaints: {}", complaint);
             }
         }
-
-        return complaints;
+        return new ResponseEntity<>(complaints, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
-    public Complaint getById(@PathVariable("id") Long id) {
+    public ResponseEntity <Complaint> getById(@PathVariable("id") Long id) throws IdDoesNotExistException {
         logger1.info("Getting complaint by ID: {}", id);
-        return complaintService.getById(id);
+        return new ResponseEntity<>(complaintService.getById(id), HttpStatus.OK);
     }
 
     @PutMapping("/{id}")
-    public Complaint update(@RequestBody Complaint complaint) {
+    public ResponseEntity <Complaint> update(@RequestBody Complaint complaint) throws IdDoesNotExistException {
         logger1.info("Updating complaint by id to: {}", complaint);
-        return complaintService.update(complaint);
+        return new ResponseEntity<>(complaintService.update(complaint), HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
-    public boolean delete(@PathVariable("id") Long id) {
+    public ResponseEntity <Boolean> delete(@PathVariable("id") Long id) throws IdDoesNotExistException {
         logger1.info("Deleting the complaint with id {}", id);
-        return complaintService.delete(id);
+        return new ResponseEntity<>(complaintService.delete(id), HttpStatus.OK);
     }
 }

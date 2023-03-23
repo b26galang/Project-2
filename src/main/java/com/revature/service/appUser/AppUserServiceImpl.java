@@ -1,6 +1,8 @@
 package com.revature.service.appUser;
 
+import com.revature.dto.LoginRequest;
 import com.revature.entity.AppUser;
+import com.revature.exceptions.InvalidLoginInfoException;
 import com.revature.repository.AppUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
@@ -13,16 +15,20 @@ public class AppUserServiceImpl implements AppUserService{
     @Autowired
     AppUserRepository appUserRepository;
 
-    public AppUser verifyUser(String username, String password) {
-        // Retrieve the user with the given username from the database
-        AppUser user = appUserRepository.findByUsername(username);
+    @Override
+    public AppUser getByUsername(String username) {
+        return appUserRepository.getByUsername(username);
+    }
 
-        // Check if the user exists and if the password matches
-        if (user != null && user.getPassword().equals(password)) {
-            return user;
+    @Override
+    public AppUser verifyUser(LoginRequest loginRequest) {
+        AppUser appUser = appUserRepository.getByUsername(loginRequest.getUsername());
+        if (appUser != null && appUser.getPassword().equals(loginRequest.getPassword())) {
+            return appUser;
         } else {
             return null;
         }
     }
+
 }
 
